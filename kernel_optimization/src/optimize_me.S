@@ -67,18 +67,15 @@ optimize_me:
 	ldr	r3, [fp, #-28]
 	mov	r3, r3, asl #2
 	ldr	r2, [fp, #-40]
-	add	r4, r2, r3
-	ldr	r3, [fp, #-28]
-	mov	r3, r3, asl #2
-	ldr	r2, [fp, #-40]
 	add	r3, r2, r3
+	mov	r4, r3
+
 	ldr	r3, [r3]
-	ldr	r2, [fp, #-32]
-	mul	r3, r2, r3
+	ldr	r6, [fp, #-32]
+	mul	r3, r6, r3
 	add	r5, r3, #16
 	ldr	r3, [fp, #-24]
 	mov	r3, r3, asl #2
-	ldr	r2, [fp, #-40]
 	add	r3, r2, r3
 	ldr	r6, [r3]
 	ldr	r0, [fp, #-24]
