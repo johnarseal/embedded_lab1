@@ -54,8 +54,6 @@ optimize_me:
 	b	.L4
 
 .L7:
-	mov	r3, #17
-	str	r3, [fp, #-32]
 	mov	r3, #0
 	str	r3, [fp, #-28]
 	b	.L5
@@ -71,8 +69,7 @@ optimize_me:
 	mov	r4, r3
 
 	ldr	r3, [r3]
-	ldr	r6, [fp, #-32]
-	mul	r3, r6, r3
+	add	r3, r3, r3, asl #4
 	add	r5, r3, #16
 	ldr	r3, [fp, #-24]
 	mov	r3, r3, asl #2
