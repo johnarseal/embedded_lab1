@@ -61,18 +61,9 @@ optimize_me:
 	b	.L5
 
 .L6:
-	mov	r3, #2
+	mov	r3, #3
 	str	r3, [fp, #-36]
-	ldr	r3, [fp, #-36]
-	add	r3, r3, #1
-	str	r3, [fp, #-36]
-	ldr	r3, [fp, #-36]
-	sub	r2, r3, #2
-	mov	r3, r2
-	mov	r3, r3, asl #1
-	add	r3, r3, r2
-	@r3 = 3,r2=1
-	str	r3, [fp, #-36]
+	@r3 = 3
 	ldr	r3, [fp, #-28]
 	mov	r3, r3, asl #2
 	ldr	r2, [fp, #-40]
