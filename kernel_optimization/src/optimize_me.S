@@ -19,11 +19,11 @@ optimize_me:
 	@ Function supports interworking.
 	@ args = 0, pretend = 0, frame = 24
 	@ frame_needed = 1, uses_anonymous_args = 0
-	@ r7 holds the outer iterator(fp-24), r8 holds the inner iterator(fp-28)
-	stmfd	sp!, {r4, r5, r6, r7, r8, fp, lr}
+	@ r7 holds the outer iterator(fp-24), r8 holds the inner iterator(fp-28), r9 hold the address of the array
+	stmfd	sp!, {r4, r5, r6, r7, r8, r9, fp, lr}
 	add	fp, sp, #16
 	sub	sp, sp, #28
-	str	r0, [fp, #-40]
+	mov	r9, r0
 	mov	r7, #0
 	b	.L4
 
@@ -32,36 +32,32 @@ optimize_me:
 	b	.L5
 
 .L6:
-	mov	r3, #3
-	str	r3, [fp, #-36]
+	@mov	r3, #3
+	@str	r3, [fp, #-36]
 	@r3 = 3
-	mov	r3, r8
-	mov	r3, r3, asl #2
-	ldr	r2, [fp, #-40]
-	add	r3, r2, r3
-	mov	r4, r3
 
-	ldr	r3, [r3]
+	add	r4, r9, r8, asl #2
+	@ r4 = arg + r8
+
+	ldr	r3, [r4]
 	add	r3, r3, r3, asl #4
 	add	r5, r3, #16
 	@ r5 = *(arg + r8) * 17 + 16 
 
-	mov	r3, r7, asl #2
-	add	r3, r2, r3
+	add	r3, r9, r7, asl #2
 	ldr	r6, [r3]
 	@ r6 = *(arg + r7)
 
 	@ below is the func
 	add	r2, r8, r8, asl #3
 	add	r2, r2, r8, asl #4
-	@ r2 = r8 * 25
-
 	add	r0, r2, r7
-
+	@ r0 = r8 * 25 + r7
 
 	mul	r3, r6, r0
 	add	r2, r5, r3
-	ldr	r3, [fp, #-36]
+
+	mov	r3, #3
 	add	r3, r2, r3
 	add	r2, r3, #15
 	cmp	r3, #0
@@ -81,7 +77,7 @@ optimize_me:
 
 	sub	sp, fp, #16
 	@ sp needed
-	ldmfd	sp!, {r4, r5, r6, r7, r8, fp, lr}
+	ldmfd	sp!, {r4, r5, r6, r7, r8, r9, fp, lr}
 	bx	lr
 
 	.size	optimize_me, .-optimize_me
