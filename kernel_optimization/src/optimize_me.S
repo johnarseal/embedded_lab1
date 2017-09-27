@@ -19,27 +19,24 @@ optimize_me:
 	@ Function supports interworking.
 	@ args = 0, pretend = 0, frame = 24
 	@ frame_needed = 1, uses_anonymous_args = 0
-	@ r7 holds the outer iterator(fp-24), r8 holds the inner iterator(fp-28), r9 hold the address of the array
-	stmfd	sp!, {r4, r5, r6, r7, r8, r9, fp, lr}
+	@ r7 holds the outer iterator(fp-24), r8 holds the inner iterator(fp-28), r1 hold the address of the array
+	stmfd	sp!, {r4, r5, r6, r7, r8, fp, lr}
 	add	fp, sp, #16
 	sub	sp, sp, #28
-	mov	r9, r0
+	mov	r1, r0
 	mov	r7, #0
 	b	.L4
 
 .L6:
-	add	r4, r9, r8, asl #2
-	@ r4 = arg + r8
-
 	ldr	r3, [r4]
-	add	r3, r3, r3, asl #4
-	add	r5, r3, #19
-	@ r5 = arg[r8] * 17 + 19
 
 	@ below is the func
 	add	r0, r0, #25
 	@ increment r0 by 25
 
+	add	r3, r3, r3, asl #4
+	add	r5, r3, #19
+	@ r5 = arg[r8] * 17 + 19
 	mul	r3, r6, r0
 	add	r3, r5, r3
 
@@ -54,48 +51,22 @@ optimize_me:
 	moveq	r6, r3
 	add	r8, r8, #1
 
-	@ ///////////////////////
-	@ a copy of the loop
-	ldr	r3, [r4]
-	add	r3, r3, r3, asl #4
-	add	r5, r3, #19
-	@ r5 = arg[r8] * 17 + 19
-
-	@ below is the func
-	add	r0, r0, #25
-	@ increment r0 by 25
-
-	mul	r3, r6, r0
-	add	r3, r5, r3
-
-	cmp	r3, #0
-	addlt	r3, r3, #15
-
-	mov	r3, r3, asr #4
-	str	r3, [r4]
-
-	@ update r6 incase it is written
-	cmp	r8, r7
-	moveq	r6, r3
-	add	r8, r8, #1
-	@ ///////////////////////
-	@ end of a copy of the loop
-
 	cmp	r8, #500
 	blt	.L6
 
 	add	r7, r7, #1
 .L4:
 	sub	r0, r7, #25
-	ldr	r6, [r9, r7, asl #2]
+	ldr	r6, [r1, r7, asl #2]
 	@ r6 = arg[r7]	
 	cmp	r7, #500
 	mov	r8, #0
+	mov	r4, r1
 	blt	.L6
 
 	sub	sp, fp, #16
 	@ sp needed
-	ldmfd	sp!, {r4, r5, r6, r7, r8, r9, fp, lr}
+	ldmfd	sp!, {r4, r5, r6, r7, r8, fp, lr}
 	bx	lr
 
 	.size	optimize_me, .-optimize_me
