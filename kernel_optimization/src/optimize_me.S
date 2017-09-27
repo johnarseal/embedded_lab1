@@ -43,24 +43,23 @@ optimize_me:
 	@ Function supports interworking.
 	@ args = 0, pretend = 0, frame = 24
 	@ frame_needed = 1, uses_anonymous_args = 0
-	stmfd	sp!, {r4, r5, r6, fp, lr}
+	@ r7 holds the outer iterator(fp-24), r8 holds the inner iterator(fp-28)
+	stmfd	sp!, {r4, r5, r6, r7, r8, fp, lr}
 	add	fp, sp, #16
 	sub	sp, sp, #28
 	str	r0, [fp, #-40]
-	mov	r3, #0
-	str	r3, [fp, #-24]
+	mov	r7, #0
 	b	.L4
 
 .L7:
-	mov	r3, #0
-	str	r3, [fp, #-28]
+	mov	r8, #0
 	b	.L5
 
 .L6:
 	mov	r3, #3
 	str	r3, [fp, #-36]
 	@r3 = 3
-	ldr	r3, [fp, #-28]
+	mov	r3, r8
 	mov	r3, r3, asl #2
 	ldr	r2, [fp, #-40]
 	add	r3, r2, r3
@@ -69,16 +68,15 @@ optimize_me:
 	ldr	r3, [r3]
 	add	r3, r3, r3, asl #4
 	add	r5, r3, #16
-	ldr	r3, [fp, #-24]
+	mov	r3, r7
 	mov	r3, r3, asl #2
 	add	r3, r2, r3
 	ldr	r6, [r3]
-	ldr	r0, [fp, #-24]
-	ldr	r1, [fp, #-28]
+	mov	r0, r7
+	mov	r1, r8
 	bl	func
 
-	mov	r3, r0
-	mul	r3, r6, r3
+	mul	r3, r6, r0
 	add	r2, r5, r3
 	ldr	r3, [fp, #-36]
 	add	r3, r2, r3
@@ -88,24 +86,19 @@ optimize_me:
 	movge	r3, r3
 	mov	r3, r3, asr #4
 	str	r3, [r4]
-	ldr	r3, [fp, #-28]
-	add	r3, r3, #1
-	str	r3, [fp, #-28]
+	add	r8, r8, #1
 .L5:
-	ldr	r3, [fp, #-28]
-	cmp	r3, #500
+	cmp	r8, #500
 	blt	.L6
-	ldr	r3, [fp, #-24]
-	add	r3, r3, #1
-	str	r3, [fp, #-24]
+
+	add	r7, r7, #1
 .L4:
-	ldr	r3, [fp, #-24]
-	cmp	r3, #500
+	cmp	r7, #500
 	blt	.L7
 
 	sub	sp, fp, #16
 	@ sp needed
-	ldmfd	sp!, {r4, r5, r6, fp, lr}
+	ldmfd	sp!, {r4, r5, r6, r7, r8, fp, lr}
 	bx	lr
 
 	.size	optimize_me, .-optimize_me
