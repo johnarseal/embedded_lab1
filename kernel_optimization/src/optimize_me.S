@@ -25,20 +25,20 @@ optimize_me:
 	sub	sp, sp, #28
 	mov	r1, r0
 	mov	r7, #0
+	mov	r2, r1
 	b	.L4
 
 .L6:
 	ldr	r3, [r4]
-
-	@ below is the func
-	add	r0, r0, #25
-	@ increment r0 by 25
 
 	add	r3, r3, r3, asl #4
 	add	r5, r3, #19
 	@ r5 = arg[r8] * 17 + 19
 	mul	r3, r6, r0
 	add	r3, r5, r3
+
+	@ increment r0 by 25
+	add	r0, r0, #25
 
 	cmp	r3, #0
 	addlt	r3, r3, #15
@@ -49,15 +49,15 @@ optimize_me:
 	@ update r6 incase it is written
 	cmp	r8, r7
 	moveq	r6, r3
-	add	r8, r8, #1
 
+	add	r8, r8, #1
 	cmp	r8, #500
 	blt	.L6
 
 	add	r7, r7, #1
 .L4:
-	sub	r0, r7, #25
-	ldr	r6, [r1, r7, asl #2]
+	mov	r0, r7
+	ldr	r6, [r2], #4
 	@ r6 = arg[r7]	
 	cmp	r7, #500
 	mov	r8, #0
