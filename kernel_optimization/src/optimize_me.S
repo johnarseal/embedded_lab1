@@ -12,6 +12,9 @@
 	.file	"optimize_me.c"
 	.text
 	.align	2
+
+
+
 	.global	func
 	.type	func, %function
 func:
@@ -22,8 +25,8 @@ func:
 	str	fp, [sp, #-4]!
 	add	fp, sp, #0
 	sub	sp, sp, #12
-	str	r0, [fp, #-8]
-	str	r1, [fp, #-12]
+	@str	r0, [fp, #-8]
+	@str	r1, [fp, #-12]
 
 	add	r2, r1, r1, asl #3
 	add	r2, r2, r1, asl #4
@@ -37,6 +40,9 @@ func:
 	bx	lr
 	.size	func, .-func
 	.align	2
+
+
+
 	.global	optimize_me
 	.type	optimize_me, %function
 optimize_me:
@@ -68,13 +74,24 @@ optimize_me:
 	ldr	r3, [r3]
 	add	r3, r3, r3, asl #4
 	add	r5, r3, #16
-	mov	r3, r7
-	mov	r3, r3, asl #2
+	@ r5 = *(arg + r8) * 17 + 16 
+
+	mov	r3, r7, asl #2
 	add	r3, r2, r3
 	ldr	r6, [r3]
-	mov	r0, r7
-	mov	r1, r8
-	bl	func
+	@ r6 = *(arg + r7)
+
+	@mov	r0, r7
+	@mov	r1, r8
+	@bl	func
+
+	@ below is the func
+	add	r2, r8, r8, asl #3
+	add	r2, r2, r8, asl #4
+	@ r2 = r8 * 25
+
+	add	r0, r2, r7
+
 
 	mul	r3, r6, r0
 	add	r2, r5, r3
