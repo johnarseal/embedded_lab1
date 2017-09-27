@@ -852,28 +852,28 @@ Disassembly of section .text:
     8c50:	e24dd01c 	sub	sp, sp, #28
     8c54:	e1a09000 	mov	r9, r0
     8c58:	e3a07000 	mov	r7, #0
-    8c5c:	ea000012 	b	8cac <optimize_me+0x64>
-    8c60:	e3a08000 	mov	r8, #0
-    8c64:	ea00000d 	b	8ca0 <optimize_me+0x58>
-    8c68:	e0894108 	add	r4, r9, r8, lsl #2
-    8c6c:	e5943000 	ldr	r3, [r4]
-    8c70:	e0833203 	add	r3, r3, r3, lsl #4
-    8c74:	e2835013 	add	r5, r3, #19
-    8c78:	e0893107 	add	r3, r9, r7, lsl #2
-    8c7c:	e5936000 	ldr	r6, [r3]
-    8c80:	e2800019 	add	r0, r0, #25
-    8c84:	e0030096 	mul	r3, r6, r0
-    8c88:	e0853003 	add	r3, r5, r3
-    8c8c:	e3530000 	cmp	r3, #0
-    8c90:	b283300f 	addlt	r3, r3, #15
-    8c94:	e1a03243 	asr	r3, r3, #4
-    8c98:	e5843000 	str	r3, [r4]
-    8c9c:	e2888001 	add	r8, r8, #1
-    8ca0:	e3580f7d 	cmp	r8, #500	; 0x1f4
-    8ca4:	baffffef 	blt	8c68 <optimize_me+0x20>
-    8ca8:	e2877001 	add	r7, r7, #1
-    8cac:	e2470019 	sub	r0, r7, #25
-    8cb0:	e3570f7d 	cmp	r7, #500	; 0x1f4
+    8c5c:	ea000010 	b	8ca4 <optimize_me+0x5c>
+    8c60:	e0894108 	add	r4, r9, r8, lsl #2
+    8c64:	e5943000 	ldr	r3, [r4]
+    8c68:	e0833203 	add	r3, r3, r3, lsl #4
+    8c6c:	e2835013 	add	r5, r3, #19
+    8c70:	e2800019 	add	r0, r0, #25
+    8c74:	e0030096 	mul	r3, r6, r0
+    8c78:	e0853003 	add	r3, r5, r3
+    8c7c:	e3530000 	cmp	r3, #0
+    8c80:	b283300f 	addlt	r3, r3, #15
+    8c84:	e1a03243 	asr	r3, r3, #4
+    8c88:	e5843000 	str	r3, [r4]
+    8c8c:	e1580007 	cmp	r8, r7
+    8c90:	01a06003 	moveq	r6, r3
+    8c94:	e2888001 	add	r8, r8, #1
+    8c98:	e3580f7d 	cmp	r8, #500	; 0x1f4
+    8c9c:	baffffef 	blt	8c60 <optimize_me+0x18>
+    8ca0:	e2877001 	add	r7, r7, #1
+    8ca4:	e2470019 	sub	r0, r7, #25
+    8ca8:	e7996107 	ldr	r6, [r9, r7, lsl #2]
+    8cac:	e3570f7d 	cmp	r7, #500	; 0x1f4
+    8cb0:	e3a08000 	mov	r8, #0
     8cb4:	baffffe9 	blt	8c60 <optimize_me+0x18>
     8cb8:	e24bd010 	sub	sp, fp, #16
     8cbc:	e8bd4bf0 	pop	{r4, r5, r6, r7, r8, r9, fp, lr}
@@ -3210,12 +3210,12 @@ Disassembly of section .debug_line:
  50c:	8c480205 	sfmhi	f0, 2, [r8], {5}
  510:	16030000 	strne	r0, [r3], -r0
  514:	2f2f2f01 	svccs	0x002f2f01
- 518:	2f312f2f 	svccs	0x00312f2f
- 51c:	2f2f3131 	svccs	0x002f3131
- 520:	31322f31 	teqcc	r2, r1, lsr pc
- 524:	302f302f 	eorcc	r3, pc, pc, lsr #32
- 528:	2f302f2f 	svccs	0x00302f2f
- 52c:	2f2f3030 	svccs	0x002f3030
+ 518:	31312f2f 	teqcc	r1, pc, lsr #30
+ 51c:	31322f2f 	teqcc	r2, pc, lsr #30
+ 520:	302f302f 	eorcc	r3, pc, pc, lsr #32
+ 524:	302f312f 	eorcc	r3, pc, pc, lsr #2
+ 528:	30302f31 	eorscc	r2, r0, r1, lsr pc
+ 52c:	2f2f302f 	svccs	0x002f302f
  530:	022f3030 	eoreq	r3, pc, #48	; 0x30
  534:	01010002 	tsteq	r1, r2
  538:	0000005a 	andeq	r0, r0, sl, asr r0

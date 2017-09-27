@@ -27,10 +27,6 @@ optimize_me:
 	mov	r7, #0
 	b	.L4
 
-.L7:
-	mov	r8, #0
-	b	.L5
-
 .L6:
 	add	r4, r9, r8, asl #2
 	@ r4 = arg + r8
@@ -40,13 +36,9 @@ optimize_me:
 	add	r5, r3, #19
 	@ r5 = *(arg + r8) * 17 + 19
 
-	add	r3, r9, r7, asl #2
-	ldr	r6, [r3]
-	@ r6 = *(arg + r7)
-
 	@ below is the func
 	add	r0, r0, #25
-	@ r0 = r8 * 25 + r7
+	@ increment r0 by 25
 
 	mul	r3, r6, r0
 	add	r3, r5, r3
@@ -56,16 +48,25 @@ optimize_me:
 
 	mov	r3, r3, asr #4
 	str	r3, [r4]
+
+	@ update r6 incase it is written
+	cmp	r8, r7
+	moveq	r6, r3
+
 	add	r8, r8, #1
+
 .L5:
 	cmp	r8, #500
 	blt	.L6
 
 	add	r7, r7, #1
 .L4:
-	sub	r0, r7, #25	
+	sub	r0, r7, #25
+	ldr	r6, [r9, r7, asl #2]
+	@ r6 = *(arg + r7)	
 	cmp	r7, #500
-	blt	.L7
+	mov	r8, #0
+	blt	.L6
 
 	sub	sp, fp, #16
 	@ sp needed
