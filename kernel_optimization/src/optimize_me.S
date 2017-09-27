@@ -24,9 +24,11 @@ optimize_me:
 	add	fp, sp, #16
 	sub	sp, sp, #28
 	mov	r9, r0
-	mov	r7, #0
+	mov	r7, #500
 	mov	r10, #-26
 	mov	r1, r0
+	mov	r2, #500
+	sub	r2, r2, #1
 	b	.L4
 
 .L6:
@@ -52,23 +54,19 @@ optimize_me:
 	cmp	r8, r7
 	moveq	r6, r3
 
-	add	r8, r8, #1
+	subs	r8, r8, #1
+	bge	.L6
 
-.L5:
-	cmp	r8, #500
-	blt	.L6
-
-	add	r7, r7, #1
 .L4:
 	add	r10, r10, #1
 	mov	r0, r10
 	ldr	r6, [r1], #4
 	@ r6 = arg[i]	
 
-	cmp	r7, #500
-	mov	r8, #0
+	mov	r8, r2
 	mov	r4, r9
-	blt	.L6
+	subs	r7, r7, #1
+	bge	.L6
 
 	sub	sp, fp, #16
 	@ sp needed
