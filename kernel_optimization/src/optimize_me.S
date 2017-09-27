@@ -24,16 +24,14 @@ func:
 	sub	sp, sp, #12
 	str	r0, [fp, #-8]
 	str	r1, [fp, #-12]
-	ldr	r2, [fp, #-12]
-	mov	r3, r2
-	mov	r3, r3, asl #2
-	add	r3, r3, r2
-	mov	r2, r3, asl #2
-	add	r2, r3, r2
-	ldr	r3, [fp, #-8]
-	add	r3, r2, r3
+
+	add	r2, r1, r1, asl #3
+	add	r2, r2, r1, asl #4
+	@ r2 = r1 * 25
+
+	add	r3, r2, r0
 	mov	r0, r3
-	sub	sp, fp, #0
+	mov	sp, fp
 	@ sp needed
 	ldr	fp, [sp], #4
 	bx	lr
