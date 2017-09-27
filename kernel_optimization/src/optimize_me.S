@@ -22,20 +22,20 @@ optimize_me:
 	@ r7 holds the outer iterator(fp-24), r8 holds the inner iterator(fp-28), r1 hold the address of the array
 	stmfd	sp!, {r4, r5, r6, r7, r8, fp, lr}
 	add	fp, sp, #16
-	sub	sp, sp, #28
+	sub	sp, sp, #32
 	mov	r1, r0
 	mov	r7, #0
 	mov	r2, r1
 	b	.L4
 
 .L6:
+	@/////copy of the loop
 	ldr	r3, [r4]
 
 	add	r3, r3, r3, asl #4
 	add	r5, r3, #19
 	@ r5 = arg[r8] * 17 + 19
-	mul	r3, r6, r0
-	add	r3, r5, r3
+	mla	r3, r6, r0, r5
 
 	@ increment r0 by 25
 	add	r0, r0, #25
@@ -43,7 +43,7 @@ optimize_me:
 	cmp	r3, #0
 	addlt	r3, r3, #15
 
-	mov	r3, r3, asr #4
+	asr	r3, #4
 	str	r3, [r4], #4
 
 	@ update r6 incase it is written
@@ -51,6 +51,15 @@ optimize_me:
 	moveq	r6, r3
 
 	add	r8, r8, #1
+
+
+
+
+
+
+
+
+
 	cmp	r8, #500
 	blt	.L6
 
