@@ -64,6 +64,151 @@ optimize_me:
 	moveq	r6, r3
 	@/////end of the loop	
 
+
+	@/////copy of the loop	
+	ldmia	r4, {r3,r7}
+	@/////////using r3
+	add	r3, r3, r3, asl #4
+	add	r3, r3, #19
+	mlas	r3, r6, ip, r3
+	@ increment ip by 25
+	add	ip, ip, #25
+	addmi	r3, r3, #15
+
+	asr	r3, #4
+	str	r3, [r4], #4
+
+	@ update r6 incase it is written
+	cmp	r4, r2
+	moveq	r6, r3
+
+	@/////////using r7
+	add	r7, r7, r7, asl #4
+	add	r7, r7, #19
+	mlas	r3, r6, ip, r7
+	@ increment ip by 25
+	add	ip, ip, #25
+	addmi	r3, r3, #15
+
+	asr	r3, #4
+	str	r3, [r4], #4
+
+	@ update r6 incase it is written
+	cmp	r4, r2
+	moveq	r6, r3
+	@/////end of the loop	
+
+
+	@/////copy of the loop	
+	ldr	r3, [r4]
+	@/////////using r3
+	add	r3, r3, r3, asl #4
+	add	r3, r3, #19
+	mlas	r3, r6, ip, r3
+	@ increment ip by 25
+	add	ip, ip, #25
+	addmi	r3, r3, #15
+
+	asr	r3, #4
+	str	r3, [r4], #4
+	
+	@ update r6 incase it is written
+	cmp	r4, r2
+	moveq	r6, r3
+	@/////end of the loop
+
+
+
+	@/////copy of the loop	
+	ldmia	r4, {r3,r7}
+	@/////////using r3
+	add	r3, r3, r3, asl #4
+	add	r3, r3, #19
+	mlas	r3, r6, ip, r3
+	@ increment ip by 25
+	add	ip, ip, #25
+	addmi	r3, r3, #15
+
+	asr	r3, #4
+	str	r3, [r4], #4
+
+	@ update r6 incase it is written
+	cmp	r4, r2
+	moveq	r6, r3
+
+	@/////////using r7
+	add	r7, r7, r7, asl #4
+	add	r7, r7, #19
+	mlas	r3, r6, ip, r7
+	@ increment ip by 25
+	add	ip, ip, #25
+	addmi	r3, r3, #15
+
+	asr	r3, #4
+	str	r3, [r4], #4
+
+	@ update r6 incase it is written
+	cmp	r4, r2
+	moveq	r6, r3
+	@/////end of the loop	
+
+
+	@/////copy of the loop	
+	ldmia	r4, {r3,r7}
+	@/////////using r3
+	add	r3, r3, r3, asl #4
+	add	r3, r3, #19
+	mlas	r3, r6, ip, r3
+	@ increment ip by 25
+	add	ip, ip, #25
+	addmi	r3, r3, #15
+
+	asr	r3, #4
+	str	r3, [r4], #4
+
+	@ update r6 incase it is written
+	cmp	r4, r2
+	moveq	r6, r3
+
+	@/////////using r7
+	add	r7, r7, r7, asl #4
+	add	r7, r7, #19
+	mlas	r3, r6, ip, r7
+	@ increment ip by 25
+	add	ip, ip, #25
+	addmi	r3, r3, #15
+
+	asr	r3, #4
+	str	r3, [r4], #4
+
+	@ update r6 incase it is written
+	cmp	r4, r2
+	moveq	r6, r3
+	@/////end of the loop	
+
+
+	@/////copy of the loop	
+	ldr	r3, [r4]
+	@/////////using r3
+	add	r3, r3, r3, asl #4
+	add	r3, r3, #19
+	mlas	r3, r6, ip, r3
+	@ increment ip by 25
+	add	ip, ip, #25
+	addmi	r3, r3, #15
+
+	asr	r3, #4
+	str	r3, [r4], #4
+	
+	@ update r6 incase it is written
+	cmp	r4, r2
+	moveq	r6, r3
+	@/////end of the loop
+
+
+
+
+
 	cmp	r4, r5
 	blt	.L6
 
