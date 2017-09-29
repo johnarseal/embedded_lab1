@@ -20,14 +20,16 @@ optimize_me:
 	@ args = 0, pretend = 0, frame = 24
 	@ frame_needed = 1, uses_anonymous_args = 0
 	@ r7 holds the outer iterator(fp-24), r8 holds the inner iterator(fp-28), r1 hold the address of the array
-	stmfd	sp!, {r4, r6, r7, r8, fp, lr}
-	add	fp, sp, #16
-	sub	sp, sp, #32
+	stmfd	sp!, {r4, r5, r6, r7, r8, fp, lr}
 	mov	r1, r0
 	mov	r7, #0
 	mov	r2, r1
-	b	.L4
+	add	r5, r0, #2000
 
+
+.L4:	mov	r0, r7
+	ldr	r6, [r2], #4
+	mov	r4, r1
 
 .L6:
 	@/////copy of the loop
@@ -44,29 +46,18 @@ optimize_me:
 	str	r3, [r4], #4
 
 	@ update r6 incase it is written
-	cmp	r8, r7
+	cmp	r4, r2
 	moveq	r6, r3
 
-	add	r8, r8, #1
-
-	cmp	r8, #500
+	cmp	r4, r5
 	blt	.L6
 
 	add	r7, r7, #1
-.L4:
-
 	cmp	r7, #500	
-	mov	r0, r7
-	ldr	r6, [r2], #4
-	@ r6 = arg[r7]	
-	
-	mov	r8, #0
-	mov	r4, r1
-	blt	.L6
+	blt	.L4
 
-.LEND:	sub	sp, fp, #16
 	@ sp needed
-	ldmfd	sp!, {r4, r6, r7, r8, fp, lr}
+	ldmfd	sp!, {r4, r5, r6, r7, r8, fp, lr}
 	bx	lr
 
 	.size	optimize_me, .-optimize_me
