@@ -28,20 +28,17 @@ optimize_me:
 	mov	r2, r1
 	b	.L4
 
+
 .L6:
 	@/////copy of the loop
 	ldr	r3, [r4]
-
 	add	r3, r3, r3, asl #4
 	add	r5, r3, #19
 	@ r5 = arg[r8] * 17 + 19
-	mla	r3, r6, r0, r5
-
+	mlas	r3, r6, r0, r5
 	@ increment r0 by 25
 	add	r0, r0, #25
-
-	cmp	r3, #0
-	addlt	r3, r3, #15
+	addmi	r3, r3, #15
 
 	asr	r3, #4
 	str	r3, [r4], #4
@@ -52,28 +49,23 @@ optimize_me:
 
 	add	r8, r8, #1
 
-
-
-
-
-
-
-
-
 	cmp	r8, #500
 	blt	.L6
 
 	add	r7, r7, #1
 .L4:
+	cmp	r7, #500
+	beq	.LEND
+	
 	mov	r0, r7
 	ldr	r6, [r2], #4
 	@ r6 = arg[r7]	
-	cmp	r7, #500
+	
 	mov	r8, #0
 	mov	r4, r1
 	blt	.L6
 
-	sub	sp, fp, #16
+.LEND:	sub	sp, fp, #16
 	@ sp needed
 	ldmfd	sp!, {r4, r5, r6, r7, r8, fp, lr}
 	bx	lr

@@ -40,6 +40,7 @@ K_C_SRC += $(PROJECT)/src/printk.c
 K_C_SRC += $(PROJECT)/src/uart.c
 K_C_SRC += $(PROJECT)/src/i2c.c
 K_C_SRC += $(PROJECT)/src/ads1015.c
+K_C_SRC += $(PROJECT)/src/utils.c
 
 ###########################################################################
 # Kernel assembly source files
