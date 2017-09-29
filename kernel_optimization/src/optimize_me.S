@@ -19,17 +19,16 @@ optimize_me:
 	@ Function supports interworking.
 	@ args = 0, pretend = 0, frame = 24
 	@ frame_needed = 1, uses_anonymous_args = 0
-	@ r7 holds the outer iterator(fp-24), r8 holds the inner iterator(fp-28), r1 hold the address of the array
-	stmfd	sp!, {r4, r5, r6, r7, r8, fp, lr}
-	mov	r1, r0
-	mov	r7, #0
-	mov	r2, r1
+	@ r1 holds the outer iterator(fp-24), r8 holds the inner iterator(fp-28), r0 hold the address of the array
+	stmfd	sp!, {r4, r5, r6, fp, lr}
+	mov	r1, #0
+	mov	r2, r0
 	add	r5, r0, #2000
 
 
-.L4:	mov	r0, r7
+.L4:	mov	ip, r1
 	ldr	r6, [r2], #4
-	mov	r4, r1
+	mov	r4, r0
 
 .L6:
 	@/////copy of the loop
@@ -37,9 +36,9 @@ optimize_me:
 	add	r3, r3, r3, asl #4
 	add	r3, r3, #19
 	@ r3 = arg[r8] * 17 + 19
-	mlas	r3, r6, r0, r3
-	@ increment r0 by 25
-	add	r0, r0, #25
+	mlas	r3, r6, ip, r3
+	@ increment ip by 25
+	add	ip, ip, #25
 	addmi	r3, r3, #15
 
 	asr	r3, #4
@@ -52,12 +51,12 @@ optimize_me:
 	cmp	r4, r5
 	blt	.L6
 
-	add	r7, r7, #1
-	cmp	r7, #500	
+	add	r1, r1, #1
+	cmp	r1, #500	
 	blt	.L4
 
 	@ sp needed
-	ldmfd	sp!, {r4, r5, r6, r7, r8, fp, lr}
+	ldmfd	sp!, {r4, r5, r6, fp, lr}
 	bx	lr
 
 	.size	optimize_me, .-optimize_me
