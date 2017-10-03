@@ -3,7 +3,7 @@
 # source code for your kernel inside of the code/ directory      #
 ##################################################################
 
-PROJECT = kernel
+PROJECT = kernel_clapdetector
 
 ##################################################################
 #      Do not edit below this!  Edit config.mk instead!          #

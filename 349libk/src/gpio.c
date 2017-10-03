@@ -11,6 +11,7 @@
 #include <kstdint.h>
 #include <BCM2836.h>
 
+/** @brief base of MMIO memory address in Raspberry Pi 2 */
 #define MMIO_BASE_PHYSICAL 0x3F000000
 
 /** @brief base of GPIO in memory mapped IO on pi

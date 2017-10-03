@@ -75,8 +75,6 @@ uint16_t adc_read_conversion(){
 
 
 void adc_init(void) {
-	//uint8_t buf[1];	
-	//uint8_t wbuf[3];
 	uint8_t buf[1];
 	uint8_t rbuf[2];
 	uint16_t retVal;
@@ -143,7 +141,7 @@ uint16_t adc_read(uint8_t channel) {
 
 void display_light(){
 	uint16_t val = adc_read(3);
-	printk("%d\n",val);
+	printk("Light: %d\n",val);
 }
 void clap_detect(){
 	int min = 0x7fffffff;
@@ -163,7 +161,7 @@ void clap_detect(){
 			}
 		}
 		gap = max - min;
-		printk("min:%d, max:%d, gap:%d\n",min,max,gap);
+		printk("Audio: %d\n",gap);
 		if(gap > 400){
 			printk("clap detected!\n");
 			break;		

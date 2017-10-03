@@ -27,7 +27,6 @@ void kernel_main(void) {
 	uint8_t input;
 	while (1){
 		input = uart_get_byte();
-		printk("got %d\n",input);
 		if(input == '0'){
 			display_light();
 

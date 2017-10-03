@@ -1327,60 +1327,60 @@ Disassembly of section .debug_info:
       6c:	2a070802 	bcs	1c207c <__end+0x9407c>
       70:	05000000 	streq	r0, [r0, #-0]
       74:	00000117 	andeq	r0, r0, r7, lsl r1
-      78:	80545401 	subshi	r5, r4, r1, lsl #8
+      78:	80545501 	subshi	r5, r4, r1, lsl #10
       7c:	01200000 			; <UNDEFINED> instruction: 0x01200000
       80:	9c010000 	stcls	0, cr0, [r1], {-0}
       84:	000000cf 	andeq	r0, r0, pc, asr #1
       88:	6e697006 	cdpvs	0, 6, cr7, cr9, cr6, {0}
-      8c:	41540100 	cmpmi	r4, r0, lsl #2
+      8c:	41550100 	cmpmi	r5, r0, lsl #2
       90:	02000000 	andeq	r0, r0, #0
       94:	66066791 			; <UNDEFINED> instruction: 0x66066791
       98:	01006e75 	tsteq	r0, r5, ror lr
-      9c:	00004154 	andeq	r4, r0, r4, asr r1
+      9c:	00004155 	andeq	r4, r0, r5, asr r1
       a0:	66910200 	ldrvs	r0, [r1], r0, lsl #4
       a4:	67657207 	strbvs	r7, [r5, -r7, lsl #4]!
-      a8:	5a590100 	bpl	16404b0 <__user_program+0x13404b0>
+      a8:	5a5a0100 	bpl	16804b0 <__user_program+0x13804b0>
       ac:	02000000 	andeq	r0, r0, #0
       b0:	1c087491 	cfstrsne	mvf7, [r8], {145}	; 0x91
       b4:	01000001 	tsteq	r0, r1
-      b8:	00005a5b 	andeq	r5, r0, fp, asr sl
+      b8:	00005a5c 	andeq	r5, r0, ip, asr sl
       bc:	70910200 	addsvc	r0, r1, r0, lsl #4
       c0:	00004a08 	andeq	r4, r0, r8, lsl #20
-      c4:	5a5d0100 	bpl	17404cc <__user_program+0x14404cc>
+      c4:	5a5e0100 	bpl	17804cc <__user_program+0x14804cc>
       c8:	02000000 	andeq	r0, r0, #0
       cc:	05006c91 	streq	r6, [r0, #-3217]	; 0xfffff36f
       d0:	00000021 	andeq	r0, r0, r1, lsr #32
-      d4:	81746401 	cmnhi	r4, r1, lsl #8
+      d4:	81746501 	cmnhi	r4, r1, lsl #10
       d8:	00840000 	addeq	r0, r4, r0
       dc:	9c010000 	stcls	0, cr0, [r1], {-0}
       e0:	000000f3 	strdeq	r0, [r0], -r3
       e4:	6e697006 	cdpvs	0, 6, cr7, cr9, cr6, {0}
-      e8:	41640100 	cmnmi	r4, r0, lsl #2
+      e8:	41650100 	cmnmi	r5, r0, lsl #2
       ec:	02000000 	andeq	r0, r0, #0
       f0:	05007791 	streq	r7, [r0, #-1937]	; 0xfffff86f
       f4:	00000041 	andeq	r0, r0, r1, asr #32
-      f8:	81f87001 	mvnshi	r7, r1
+      f8:	81f87101 	mvnshi	r7, r1, lsl #2
       fc:	00840000 	addeq	r0, r4, r0
      100:	9c010000 	stcls	0, cr0, [r1], {-0}
      104:	00000117 	andeq	r0, r0, r7, lsl r1
      108:	6e697006 	cdpvs	0, 6, cr7, cr9, cr6, {0}
-     10c:	41700100 	cmnmi	r0, r0, lsl #2
+     10c:	41710100 	cmnmi	r1, r0, lsl #2
      110:	02000000 	andeq	r0, r0, #0
      114:	09007791 	stmdbeq	r0, {r0, r4, r7, r8, r9, sl, ip, sp, lr}
      118:	0000000e 	andeq	r0, r0, lr
-     11c:	827c7c01 	rsbshi	r7, ip, #256	; 0x100
+     11c:	827c7d01 	rsbshi	r7, ip, #1, 26	; 0x40
      120:	00f80000 	rscseq	r0, r8, r0
      124:	9c010000 	stcls	0, cr0, [r1], {-0}
      128:	00000149 	andeq	r0, r0, r9, asr #2
      12c:	6e697006 	cdpvs	0, 6, cr7, cr9, cr6, {0}
-     130:	417c0100 	cmnmi	ip, r0, lsl #2
+     130:	417d0100 	cmnmi	sp, r0, lsl #2
      134:	02000000 	andeq	r0, r0, #0
      138:	110a7791 			; <UNDEFINED> instruction: 0x110a7791
      13c:	01000001 	tsteq	r0, r1
-     140:	0000417c 	andeq	r4, r0, ip, ror r1
+     140:	0000417d 	andeq	r4, r0, sp, ror r1
      144:	76910200 	ldrvc	r0, [r1], r0, lsl #4
      148:	001c0800 	andseq	r0, ip, r0, lsl #16
-     14c:	51010000 	mrspl	r0, (UNDEF: 1)
+     14c:	52010000 	andpl	r0, r1, #0
      150:	0000015a 	andeq	r0, r0, sl, asr r1
      154:	b0000305 	andlt	r0, r0, r5, lsl #6
      158:	040b0000 	streq	r0, [fp], #-0
@@ -2985,7 +2985,7 @@ Disassembly of section .debug_line:
   4c:	00000002 	andeq	r0, r0, r2
   50:	54020500 	strpl	r0, [r2], #-1280	; 0xfffffb00
   54:	03000080 	movweq	r0, #128	; 0x80
-  58:	f30100d3 	vqadd.u8	q0, <illegal reg q8.5>, <illegal reg q1.5>
+  58:	f30100d4 	vqadd.u8	q0, <illegal reg q8.5>, q2
   5c:	01040200 	mrseq	r0, R12_usr
   60:	67066606 	strvs	r6, [r6, -r6, lsl #12]
   64:	08f4d831 	ldmeq	r4!, {r0, r4, r5, fp, ip, lr, pc}^

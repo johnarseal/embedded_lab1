@@ -83,7 +83,7 @@ uint8_t uart_get_byte(void) {
 	int prompt = 0;
 	while(((*AUX_MU_LSR_REG) & 0x1) == 0){
 		if(!prompt){
-			printk("please input\n");
+			printk("Enter a sensor to sample:\n");
 			prompt = 1;		
 		}
         	// waiting for Receiver FIFO has one byte ready
