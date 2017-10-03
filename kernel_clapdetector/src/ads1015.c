@@ -95,7 +95,7 @@ void adc_init(void) {
 	// write reg pointer: read from Hi thres
 	buf[0] = 3;
 	i2c_master_write(buf,1,ADS_ADDRESS);
-	// 3. read the Hi register
+	// read the Hi register
 	i2c_master_read(rbuf,2,ADS_ADDRESS);
 	retVal = (rbuf[0] << 8) + rbuf[1];
 	printk("Hi thres is %x\n",retVal);
@@ -104,7 +104,7 @@ void adc_init(void) {
 	// write reg pointer: read from Lo thres
 	buf[0] = 2;
 	i2c_master_write(buf,1,ADS_ADDRESS);
-	// 3. read the lo register
+	// read the lo register
 	i2c_master_read(rbuf,2,ADS_ADDRESS);
 	retVal = (rbuf[0] << 8) + rbuf[1];
 	printk("Lo thres is %x\n",retVal);

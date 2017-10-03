@@ -16,43 +16,52 @@
 
 /** @brief Base Address of the BSC1 registers */
 #define BSC1_BASE  0x3f804000
-/** @brief We are using BSC1 this time */
-#define BSC_BASE_PTR (volatile uint32_t *)(BSC1_BASE)
+/** @brief We are using BSC1 for ads */
+#define BSC_BASE_ADDR BSC1_BASE
 
 /** @brief below are the define of BSC field */
-#define BSC_C 			0x0000 /*!< BSC Master Control */
-#define BSC_S 			0x0004 /*!< BSC Master Status */
-#define BSC_DLEN		0x0008 /*!< BSC Master Data Length */
-#define BSC_A 			0x000c /*!< BSC Master Slave Address */
-#define BSC_FIFO		0x0010 /*!< BSC Master Data FIFO */
-#define BSC_DIV			0x0014 /*!< BSC Master Clock Divider */
-#define BSC_DEL			0x0018 /*!< BSC Master Data Delay */
-#define BSC_CLKT		0x001c /*!< BSC Master Clock Stretch Timeout */
+
+/** @brief BSC control register */
+#define BSC_C_REG		(volatile uint32_t *)(BSC_BASE_ADDR)
+/** @brief BSC status register */
+#define BSC_S_REG		(volatile uint32_t *)(BSC_BASE_ADDR + 0x04)
+/** @brief BSC Data Length Register */
+#define BSC_DLEN_REG		(volatile uint32_t *)(BSC_BASE_ADDR + 0x08)
+/** @brief BSC slave register */
+#define BSC_A_REG		(volatile uint32_t *)(BSC_BASE_ADDR + 0x0c)
+/** @brief BSC Data FIFO Register */
+#define BSC_FIFO_REG		(volatile uint32_t *)(BSC_BASE_ADDR + 0x10)
+/** @brief BSC CLK divider Register */
+#define BSC_DIV_REG		(volatile uint32_t *)(BSC_BASE_ADDR + 0x14)
 
 
-/* Register masks for BSC_C */
-#define BSC_C_I2CEN 		0x00008000 /*!< I2C Enable, 0 = disabled, 1 = enabled */
-#define BSC_C_INTR 		0x00000400 /*!< Interrupt on RX */
-#define BSC_C_INTT 		0x00000200 /*!< Interrupt on TX */
-#define BSC_C_INTD 		0x00000100 /*!< Interrupt on DONE */
-#define BSC_C_ST 		0x00000080 /*!< Start transfer, 1 = Start a new transfer */
-#define BSC_C_CLEAR_1 		0x00000020 /*!< Clear FIFO Clear */
-#define BSC_C_CLEAR_2 		0x00000010 /*!< Clear FIFO Clear */
-#define BSC_C_READ 		0x00000001 /*!<	Read transfer */
+/* @brief below are the register masks for BSC control */
 
-/* Register masks for BSC_S */
-#define BSC_S_CLKT 		0x00000200 /*!< Clock stretch timeout */
-#define BSC_S_ERR 		0x00000100 /*!< ACK error */
-#define BSC_S_RXF 		0x00000080 /*!< RXF FIFO full, 0 = FIFO is not full, 1 = FIFO is full */
-#define BSC_S_TXE 		0x00000040 /*!< TXE FIFO full, 0 = FIFO is not full, 1 = FIFO is full */
-#define BSC_S_RXD 		0x00000020 /*!< RXD FIFO contains data */
-#define BSC_S_TXD 		0x00000010 /*!< TXD FIFO can accept data */
-#define BSC_S_RXR 		0x00000008 /*!< RXR FIFO needs reading (full) */
-#define BSC_S_TXW 		0x00000004 /*!< TXW FIFO needs writing (full) */
-#define BSC_S_DONE 		0x00000002 /*!< Transfer DONE */
-#define BSC_S_TA 		0x00000001 /*!< Transfer Active */
+/** @brief I2C Enable, 0 = disabled, 1 = enabled */
+#define BSC_C_I2CEN 		0x8000
+/** @brief Start transfer, 1 = Start a new transfer */
+#define BSC_C_ST 		0x0080
+/** @brief Clear FIFO Clear */
+#define BSC_C_CLEAR_1 		0x0020
+/** @brief Clear FIFO Clear */
+#define BSC_C_CLEAR_2 		0x0010
+/** @brief Read transfer */
+#define BSC_C_READ 		0x0001 
 
-#define BSC_FIFO_SIZE   	16 /*!< BSC FIFO size */
+/* @brief below are the register masks for BSC status */
+
+/** @brief Clock stretch timeout */
+#define BSC_S_CLKT 		0x00000200
+/** @brief ACK error */
+#define BSC_S_ERR 		0x00000100
+/** @brief FIFO contains data */
+#define BSC_S_RXD 		0x00000020 
+/** @brief FIFO can accept data */
+#define BSC_S_TXD 		0x00000010
+/** @brief Transfer DONE */
+#define BSC_S_DONE 		0x00000002
+
+#define BSC_FIFO_MAX   	16 /* BSC FIFO size */
 
 
 
@@ -65,19 +74,6 @@ typedef enum
 } I2CReasonCodes;
 
 
-
-
-
-/** @brief BSC1 control register */
-#define CTRL_BSC1 (volatile uint32_t *)(MMIO_BSC1_PHYSICAL + 0x0)
-/** @brief BSC1 status register */
-#define STATUS_BSC1 (volatile uint32_t *)(MMIO_BSC1_PHYSICAL + 0x4)
-/** @brief BSC1 status register */
-#define DLEN_BSC1 (volatile uint32_t *)(MMIO_BSC1_PHYSICAL + 0x8)
-/** @brief BSC1 slave address */
-#define SLAVE_BSC1 (volatile uint32_t *)(MMIO_BSC1_PHYSICAL + 0xc)
-/** @brief BSC1 slave address */
-#define FIFO_BSC1 (volatile uint32_t *)(MMIO_BSC1_PHYSICAL + 0x10)
 
 // I2C Clock speeds
 #define I2C_CLK_100KHZ 0x5dc

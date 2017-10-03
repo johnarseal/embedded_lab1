@@ -13,8 +13,6 @@
 #include <kstdint.h>
 
 
-/** @brief The i2c is in default 150MHz / 0x5DC = 100kHz standard speed mode */
-#define DEFAULT_CLOCK_SPEED 0x5dc
 /** @brief The address of ADS 0b1001000*/
 #define	ADS_ADDRESS 0x49
 /** @brief The configure register of ADS*/
@@ -22,7 +20,7 @@
 /** @brief The conversion register of ADS*/
 #define	ADS_CONVERS_REG 0x0
 #define	ADS_GENERALCALL_ADDR	0x0
-/** @brief The continuous mode of ADS 0b0000 0100 1000 0011, PGA=001*/
+/** @brief The continuous mode of ADS 0b0000 0100 1000 0011, PGA=000*/
 #define ADS_CONTINU_CONFIG 0x0083
 
 /** @brief The mask of AIN0 */

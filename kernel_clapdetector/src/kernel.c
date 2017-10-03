@@ -20,7 +20,7 @@ void kernel_main(void) {
 	uart_init();
 	
 	// The i2c is in default 100kHz standard speed mode, no need to set th clk now
-	i2c_master_init(DEFAULT_CLOCK_SPEED);
+	i2c_master_init(I2C_CLK_100KHZ);
 
 	// init adc
 	adc_init();
