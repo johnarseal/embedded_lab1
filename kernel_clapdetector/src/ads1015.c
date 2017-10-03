@@ -69,7 +69,7 @@ uint16_t adc_read_conversion(){
 	}
 
 	uint16_t retVal = (rbuf[0] << 8) + rbuf[1];
-	return retVal;
+	return (retVal >> 4);
 
 }
 
@@ -81,17 +81,7 @@ void adc_init(void) {
 	uint8_t rbuf[2];
 	uint16_t retVal;
 	uint8_t reason;
-	
-	/** give general call to reset ads1015 */
-	/*
-	buf[0] = 0x6;
-	if((reason = i2c_master_write(buf,1,ADS_GENERALCALL_ADDR)) != 0){
-		printk("error %d when reset ads1015\n",reason);
-	}*/
 
-	// The default config value set the ADS to continuous mode
-	//adc_write_config(ADS_CONTINU_CONFIG);
-	// read the config register
 	
 	// write reg pointer: read from config
 	buf[0] = 1;
@@ -100,20 +90,10 @@ void adc_init(void) {
 		printk("error %d when reading config reg\n",reason);
 	}
 	retVal = (rbuf[0] << 8) + rbuf[1];
-	printk("config register is %x\n",retVal);
+	printk("Initially, config register is %x\n",retVal);
 
 
 
-	// specify to write for Hi thres
-/*
-	wbuf[0] = 3;
-	wbuf[1] = 0x1;
-	wbuf[2] = 0x05;
-	
-	if((reason = i2c_master_write(wbuf,3,ADS_ADDRESS)) != 0){
-		printk("error %d when setting Hi\n",reason);
-	};
-*/
 	// write reg pointer: read from Hi thres
 	buf[0] = 3;
 	i2c_master_write(buf,1,ADS_ADDRESS);
@@ -123,15 +103,6 @@ void adc_init(void) {
 	printk("Hi thres is %x\n",retVal);
 
 
-	// specify to write for Lo thres
-/*
-	wbuf[0] = 2;
-	wbuf[1] = 0x0;
-	wbuf[2] = 0x15;
-	if((reason = i2c_master_write(wbuf,3,ADS_ADDRESS)) != 0){
-		printk("error %d when setting Lo\n",reason);
-	};
-*/
 	// write reg pointer: read from Lo thres
 	buf[0] = 2;
 	i2c_master_write(buf,1,ADS_ADDRESS);
@@ -145,22 +116,59 @@ void adc_init(void) {
 
 uint16_t adc_read(uint8_t channel) {
 
-	uint16_t config_value = ADS_CONTINU_CONFIG | ADS_CHANNEL0_MASK;
-	switch(channel){
-		case 0: config_value = ADS_CONTINU_CONFIG | ADS_CHANNEL0_MASK;
-		break;
-		case 1: config_value = ADS_CONTINU_CONFIG | ADS_CHANNEL1_MASK;
-		break;
-		case 2: config_value = ADS_CONTINU_CONFIG | ADS_CHANNEL2_MASK;
-		break;
-		case 3: config_value = ADS_CONTINU_CONFIG | ADS_CHANNEL3_MASK;
-		break;
-		default:
-		return 0;
+	// initially, no channel is set
+	static int cur_channel = -1;
+	uint16_t config_value;
+	if(channel != cur_channel){
+		config_value = ADS_CONTINU_CONFIG | ADS_CHANNEL0_MASK;
+		switch(channel){
+			case 0: config_value = ADS_CONTINU_CONFIG | ADS_CHANNEL0_MASK;
+			break;
+			case 1: config_value = ADS_CONTINU_CONFIG | ADS_CHANNEL1_MASK;
+			break;
+			case 2: config_value = ADS_CONTINU_CONFIG | ADS_CHANNEL2_MASK;
+			break;
+			case 3: config_value = ADS_CONTINU_CONFIG | ADS_CHANNEL3_MASK;
+			break;
+			default:
+			return 0;
+		}
+		// config the config register to set the AIN
+		adc_write_config(config_value);
+		cur_channel = channel;
 	}
-	// config the config register to set the AIN
-	adc_write_config(config_value);
-
 	return adc_read_conversion();
 
+}
+
+void display_light(){
+	uint16_t val = adc_read(3);
+	printk("%d\n",val);
+}
+void clap_detect(){
+	int min = 0x7fffffff;
+	int max = -999999;
+	int val,i,gap;
+	
+	while(1){
+		for(i = 0; i < 1000; i++){
+			val = (int)adc_read(2);
+			if(min > val){
+				min = val;
+				printk("min updated, %d\n",min);
+			}
+			if(max < val){
+				max = val;
+				printk("max updated, %d\n",max);	
+			}
+		}
+		gap = max - min;
+		printk("min:%d, max:%d, gap:%d\n",min,max,gap);
+		if(gap > 400){
+			printk("clap detected!\n");
+			break;		
+		}
+		
+	}
+	
 }

@@ -24,14 +24,16 @@ void kernel_main(void) {
 
 	// init adc
 	adc_init();
-	uint16_t val;
 	uint8_t input;
 	while (1){
 		input = uart_get_byte();
+		printk("got %d\n",input);
 		if(input == '0'){
-			printk("got 0\n");
-			val = adc_read(3);
-			printk("%d\n",val);
+			display_light();
+
+		}
+		else if(input == '1'){
+			clap_detect();		
 		}
 	}
 

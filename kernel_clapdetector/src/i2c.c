@@ -37,7 +37,7 @@ uint8_t i2c_master_write(uint8_t *buf, uint16_t len, uint8_t addr) {
 	uint32_t i = 0;
 	uint8_t reason = I2C_REASON_OK;
 
-	printk("entering i2c_master_write\n");
+	//printk("entering i2c_master_write\n");
 	/* Clear FIFO */
 	peri_set_bits(control, BSC_C_CLEAR_2 , BSC_C_CLEAR_2 );
 	/* Clear Status */
@@ -51,7 +51,7 @@ uint8_t i2c_master_write(uint8_t *buf, uint16_t len, uint8_t addr) {
 	while( remaining && ( i < BSC_FIFO_SIZE ) )
 	{
 		peri_write(fifo, buf[i]);
-		printk("writing byte %x to fifo\n",buf[i]);
+		//printk("writing byte %x to fifo\n",buf[i]);
 		i++;
 		remaining--;
 	}
@@ -117,7 +117,7 @@ uint8_t i2c_master_read(uint8_t *buf, uint16_t len, uint8_t addr) {
 		{
 			/* Read from FIFO, no barrier */
 			buf[i] = peri_read(fifo);
-			printk("reading one from %x, byte: %x\n",fifo, buf[i]);
+			//printk("reading one from %x, byte: %x\n",fifo, buf[i]);
 			remaining--;			
 			i++;
 		}

@@ -22,7 +22,7 @@
 /** @brief The conversion register of ADS*/
 #define	ADS_CONVERS_REG 0x0
 #define	ADS_GENERALCALL_ADDR	0x0
-/** @brief The continuous mode of ADS 0b0000 0100 1000 0011*/
+/** @brief The continuous mode of ADS 0b0000 0100 1000 0011, PGA=001*/
 #define ADS_CONTINU_CONFIG 0x0083
 
 /** @brief The mask of AIN0 */
@@ -46,5 +46,9 @@ void adc_init(void);
  * @return the value read from the ADC
  */
 uint16_t adc_read(uint8_t channel);
+
+void display_light();
+
+void clap_detect();
 
 #endif /* _ADC_DRIVER_H_ */
