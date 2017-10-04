@@ -14,12 +14,21 @@
 #include <tic_toc.h>
 #include <printk.h>
 
+/** @brief The size of the array*/
 #define SIZE 500
-int array1[SIZE],array2[SIZE];
 
+/** @brief The argument of the optimized function. Function will do computation on the array */
+int array1[SIZE];
+/** @brief The argument of the unoptimized function. Function will do computation on the array */
+int array2[SIZE];
+
+/** @brief The function to be optimized */
 void optimize_me(int array[SIZE]);
+
+/** @brief The function that was not optimized */
 void unoptimized(int array[SIZE]);
 
+/** @brief The main function of the kernel. Call two assembly function and compare */
 void kernel_main(void)
 {
   int i;

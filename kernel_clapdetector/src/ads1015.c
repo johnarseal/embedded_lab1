@@ -12,7 +12,8 @@
 #include <printk.h>
 #include <ads1015.h>
 
-
+/** @brief write the configure value config_val to the config register  */
+/** @param config_val The configure value to be written */
 void adc_write_config(uint16_t config_val){
 	
 	uint8_t buf[3];
@@ -47,7 +48,8 @@ void adc_write_config(uint16_t config_val){
 }
 
 
-// read the conversion register
+/** @brief read the conversion register */
+/** @return the value read from the conversion reg */
 uint16_t adc_read_conversion(){
 	
 	uint8_t buf[1];	
@@ -139,10 +141,13 @@ uint16_t adc_read(uint8_t channel) {
 
 }
 
+/** @brief Display the value of light */
 void display_light(){
 	uint16_t val = adc_read(3);
 	printk("Light: %d\n",val);
 }
+
+/** @brief Clap detection. Loop for 1000 times and check the peak-to-peak difference */
 void clap_detect(){
 	int min = 0x7fffffff;
 	int max = -999999;

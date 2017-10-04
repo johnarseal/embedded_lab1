@@ -10,8 +10,9 @@
 #include <kstdint.h>
 #include <BCM2836.h>
 
-// I2C pins
+/** @brief I2C DATA PINS, using GPIO 2 */
 #define I2C1_SDA 2
+/** @brief I2C CLOCK PINS, using GPIO 3 */
 #define I2C1_SCL 3
 
 /** @brief Base Address of the BSC1 registers */
@@ -61,21 +62,19 @@
 /** @brief Transfer DONE */
 #define BSC_S_DONE 		0x00000002
 
-#define BSC_FIFO_MAX   	16 /* BSC FIFO size */
+/** @brief The MAX size of BSC FIFO is 16 bytes */
+#define BSC_FIFO_MAX   	16
 
 
 
-typedef enum
-{
-    I2C_REASON_OK   	     = 0x00,      /*!< Success */
-    I2C_REASON_ERROR_NACK    = 0x01,      /*!< Received a NACK */
-    I2C_REASON_ERROR_CLKT    = 0x02,      /*!< Received Clock Stretch Timeout */
-    I2C_REASON_ERROR_DATA    = 0x04       /*!< Not all data is sent / received */
-} I2CReasonCodes;
+/** @brief I2C transfer is success */
+#define    I2C_REASON_OK   		0x00
+/** @brief I2C transfer received an NACK, no slave device acknowledges the transfer */
+#define    I2C_REASON_ERR_NACK		0x01
+/** @brief I2C transfer clock stretch timeout */
+#define    I2C_REASON_ERR_TIMEOUT	0x02
 
-
-
-// I2C Clock speeds
+/** @brief When I2C Clock speed is 100KHZ, the value of the divider register should be 0x5dc */
 #define I2C_CLK_100KHZ 0x5dc
 
 /**
@@ -91,6 +90,7 @@ extern void i2c_master_init(uint16_t clk);
  * @param buf pointer to output data buffer
  * @param len length of output data buffer in bytes
  * @param addr slave device address
+ * @return 0 means success, 1 means no slave address acknowledges, 2 means timeout
  */
 extern uint8_t i2c_master_write(uint8_t *buf, uint16_t len, uint8_t addr);
   
@@ -100,5 +100,6 @@ extern uint8_t i2c_master_write(uint8_t *buf, uint16_t len, uint8_t addr);
  * @param buf pointer to input data buffer
  * @param len number of bytes to read
  * @param addr slave device address
+ * @return 0 means success, 1 means no slave address acknowledges, 2 means timeout
  */
 extern uint8_t i2c_master_read(uint8_t *buf, uint16_t len, uint8_t addr);

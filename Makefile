@@ -3,7 +3,7 @@
 # source code for your kernel inside of the code/ directory      #
 ##################################################################
 
-PROJECT = kernel_clapdetector
+PROJECT = kernel
 
 ##################################################################
 #      Do not edit below this!  Edit config.mk instead!          #
@@ -93,7 +93,8 @@ gdb: $(PROJECT)/kernel.elf
 endif
 
 doc:
-	doxygen 349util/doxygen.conf
+	doxygen kernel_clapdetector/doxygen.conf
+	doxygen kernel_optimization/doxygen.conf
 
 openocd:
 	-killall -9 openocd

@@ -3,8 +3,8 @@
  *
  * @brief  tic-toc routines for interacting with the ARM timer.
  *
- * @date   ???
- * @author ??? <???@andrew.cmu.edu>
+ * @date   Oct 3 2017
+ * @author John Zhong <zhenz2@andrew.cmu.edu>
  */
 
 #ifndef _TIC_TOC_H_

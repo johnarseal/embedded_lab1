@@ -19,7 +19,7 @@
 #define	ADS_CONFIG_REG 0x01
 /** @brief The conversion register of ADS*/
 #define	ADS_CONVERS_REG 0x0
-#define	ADS_GENERALCALL_ADDR	0x0
+
 /** @brief The continuous mode of ADS 0b0000 0100 1000 0011, PGA=000*/
 #define ADS_CONTINU_CONFIG 0x0083
 
@@ -34,12 +34,13 @@
 
 /**
  * @brief initialize ADS1015
+ * @brief mainly doing debug output
  */
 void adc_init(void);
 
 /**
- * @brief read a value from the ADC
- *
+ * @brief Read a value from the ADC
+ * @brief If the channel is the same with last time's, don't config. Else, config
  * @param channel 0 through 3
  * @return the value read from the ADC
  */

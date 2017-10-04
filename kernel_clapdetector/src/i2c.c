@@ -62,13 +62,13 @@ uint8_t i2c_master_write(uint8_t *buf, uint16_t len, uint8_t addr) {
 	// Received a NACK
 	if ((*BSC_S_REG) & BSC_S_ERR)
 	{
-		reason = I2C_REASON_ERROR_NACK;
+		reason = I2C_REASON_ERR_NACK;
 	}
 
 	// Received Clock Stretch Timeout
 	else if ((*BSC_S_REG) & BSC_S_CLKT)
 	{
-		reason = I2C_REASON_ERROR_CLKT;
+		reason = I2C_REASON_ERR_TIMEOUT;
 	}
 
 
@@ -130,13 +130,13 @@ uint8_t i2c_master_read(uint8_t *buf, uint16_t len, uint8_t addr) {
 	// Received a NACK
 	if ((*BSC_S_REG) & BSC_S_ERR)
 	{
-		reason = I2C_REASON_ERROR_NACK;
+		reason = I2C_REASON_ERR_NACK;
 	}
 
 	// Received Clock Stretch Timeout
 	else if ((*BSC_S_REG) & BSC_S_CLKT)
 	{	
-		reason = I2C_REASON_ERROR_CLKT;
+		reason = I2C_REASON_ERR_TIMEOUT;
 	}
 	
 	while(!((*BSC_S_REG) & BSC_S_DONE)){

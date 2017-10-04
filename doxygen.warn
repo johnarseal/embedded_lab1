@@ -1,1 +1,5 @@
-warning: source ./kernel is not a readable file or directory... skipping.
+/home/zz/Projects/embed_lab1/lab1-johnarseal/code/kernel_optimization/src/timer.c:12: warning: Member timer_start(int freq) (function) of file timer.c is not documented.
+/home/zz/Projects/embed_lab1/lab1-johnarseal/code/kernel_optimization/src/timer.c:16: warning: Member timer_stop(void) (function) of file timer.c is not documented.
+/home/zz/Projects/embed_lab1/lab1-johnarseal/code/kernel_optimization/src/timer.c:20: warning: Member timer_read(void) (function) of file timer.c is not documented.
+/home/zz/Projects/embed_lab1/lab1-johnarseal/code/kernel_optimization/src/timer.c:24: warning: Member timer_is_pending(void) (function) of file timer.c is not documented.
+/home/zz/Projects/embed_lab1/lab1-johnarseal/code/kernel_optimization/src/timer.c:29: warning: Member timer_clear_pending(void) (function) of file timer.c is not documented.
